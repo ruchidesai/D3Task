@@ -1,0 +1,4 @@
+[{"Class":"crew","freq":{"survived":212, "died":673}},
+{"Class":"first","freq":{"survived":203, "died":122}},
+{"Class":"second","freq":{"survived":118, "died":167}},
+{"Class":"third","freq":{"survived":178, "died":528}}]

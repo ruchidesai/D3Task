@@ -1,4 +1,4 @@
-[{"Class":"crew","freq":{"survived":212, "died":673}},
-{"Class":"first","freq":{"survived":203, "died":122}},
-{"Class":"second","freq":{"survived":118, "died":167}},
-{"Class":"third","freq":{"survived":178, "died":528}}]
+[{"Class":"crew","freq":{"survived":{"male":192,"female":20}, "died":{"male":670,"female":3}}},
+{"Class":"first","freq":{"survived":{"male":62,"female":141}, "died":{"male":118,"female":4}}},
+{"Class":"second","freq":{"survived":{"male":25,"female":93}, "died":{"male":154,"female":13}}},
+{"Class":"third","freq":{"survived":{"male":88,"female":90}, "died":{"male":422,"female":106}}}]

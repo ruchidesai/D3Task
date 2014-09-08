@@ -49,7 +49,7 @@ rect:hover {  fill:#41ab5d; }
 </div>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
-function dashboard(id, fData){
+function dashboard(id){
     var barColor = 'steelblue';
     function segColor(c){ return {survived:"#807dba", died:"#e08214"}[c]; }
     
@@ -79,7 +79,6 @@ function dashboard(id, fData){
 
 			// Create function for y-axis map.
 			var y = d3.scale.linear().range([hGDim.h, 0])
-					//.domain([0, d3.max(fD, function(d) { return d[1]; })]);
 					.domain([0, d3.max(fD.map(function(d) { return d[1]; }))]);
 
 			// Add x-axis to the histogram svg.
@@ -94,15 +93,6 @@ function dashboard(id, fData){
 				  
 			yAxis = d3.svg.axis().scale(y).orient("left");
 
-			/*hGsvg.append("g").attr("class", "y axis")
-				.attr("transform", "translate(-10,0)")
-				.call(d3.svg.axis().scale(y).orient("left"))
-				.append("text")
-				  .attr("transform", "rotate(-90)")
-				  .attr("y", 6)
-				  .attr("dy", ".71em")
-				  .style("text-anchor", "end")
-				  .text("Number of Passengers");*/
 			hGsvg.append("g")
 				.attr("class", "yaxis")
 			.attr("transform", "translate(-10,0)")
@@ -137,8 +127,7 @@ function dashboard(id, fData){
 			function mouseover(d){  // utility function to be called on mouseover.
 				// filter for selected class.
 				var st = fData.filter(function(s){ return s.Class == d[0];})[0],
-					nD = d3.keys(st.freq).map(function(s){ return {type:s, freq:st.freq[s]};});
-				
+					nD = d3.keys(st.freq).map(function(s){ return {type:s, freq:st.freq[s]};});				
 					
 				//console.log("st[0] = "+st.freq["survived"]);
 				//console.log("nD = " + nD);
@@ -163,16 +152,6 @@ function dashboard(id, fData){
 				
 				hGsvg.select(".yaxis")
 				.call(yAxis);
-				
-				/*hGsvg.append("g").attr("class", "y axis")
-				.attr("transform", "translate(-10,0)")
-				.call(d3.svg.axis().scale(y).orient("left"))
-				.append("text")
-				  .attr("transform", "rotate(-90)")
-				  .attr("y", 6)
-				  .attr("dy", ".71em")
-				  .style("text-anchor", "end")
-				  .text("Number of Passengers");*/
 				
 				// Attach the new data to the bars.
 				var bars = hGsvg.selectAll(".bar").data(nD);
@@ -307,45 +286,15 @@ function dashboard(id, fData){
 		// calculate total frequency by class for all segment.
 		var sF = fData.map(function(d){return [d.Class,d.total];});
 
-		/*var hG = histoGram(sF), // create the histogram.
-			pC = pieChart(tF), // create the pie-chart.
-			leg= legend(tF);  // create the legend.*/
-		var leg= legend(tF), pC = pieChart(tF), hG = histoGram(sF);
+		var leg= legend(tF),//create legend
+			pC = pieChart(tF),//create piechart
+			hG = histoGram(sF);//create histogram
 	});
 }
 </script>
 
 <script>
-// var freqData=[
-// {Class:'AL',freq:{low:4786, mid:1319, high:249}}
-// ,{Class:'AZ',freq:{low:1101, mid:412, high:674}}
-// ,{Class:'CT',freq:{low:932, mid:2149, high:418}}
-// ,{Class:'DE',freq:{low:832, mid:1152, high:1862}}
-// ,{Class:'FL',freq:{low:4481, mid:3304, high:948}}
-// ,{Class:'GA',freq:{low:1619, mid:167, high:1063}}
-// ,{Class:'IA',freq:{low:1819, mid:247, high:1203}}
-// ,{Class:'IL',freq:{low:4498, mid:3852, high:942}}
-// ,{Class:'IN',freq:{low:797, mid:1849, high:1534}}
-// ,{Class:'KS',freq:{low:162, mid:379, high:471}}
-// ];
-
-/*var freqData=[
-{Class:'crew',freq:{survived:212, died:673}},
-{Class:'first',freq:{survived:203, died:122}},
-{Class:'second',freq:{survived:118, died:167}},
-{Class:'third',freq:{survived:178, died:528}}];*/
-
-var freqData;
-
-d3.json("freqData.json", function(error, json){
-	if (error)
-		return console.warn("Warning = " + error);
-	console.log("json = "+json);
-	freqData = json;
-});
-
-console.log(freqData);
-
-dashboard('#dashboard',freqData);
+dashboard('#dashboard');
 </script>
+
 <p>Help taken from <a href="http://bl.ocks.org/NPashaP/96447623ef4d342ee09b" target="_blank">this example</a><p>
